@@ -5,7 +5,7 @@ import { TermsAndConditions } from './pages/Terms'
 
 export default function App() {
   return (
-    <BrowserRouter basename='/mossway-site'>
+    <BrowserRouter>
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
