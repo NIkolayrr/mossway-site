@@ -47,13 +47,20 @@ export function TermsAndConditions() {
 
             <Section title='3. User Accounts and Data'>
               <p>
-                Currently, Mossway stores all user data locally on your device. We do not collect, store, or transmit
-                your personal data to external servers. You are responsible for:
+                Mossway stores account and app data using Firebase and related service infrastructure so your profile
+                and progress can be saved and accessed across sessions and devices.
+              </p>
+              <p>
+                This may include information such as your name, email address, authentication details, selected
+                character, quest progress, quest completion history, streaks, XP, gold, levels, notes, and other
+                gameplay-related data.
               </p>
               <ul className='list-disc list-inside ml-4 mt-2 space-y-1'>
-                <li>Maintaining the security of your device</li>
-                <li>Backing up your data if desired</li>
-                <li>Understanding that uninstalling the App may result in data loss</li>
+                <li>Keeping your sign-in credentials secure</li>
+                <li>Using a secure device and protecting access to your Google account</li>
+                <li>
+                  Understanding that deleting your account may permanently remove stored progress and related data
+                </li>
               </ul>
             </Section>
 
