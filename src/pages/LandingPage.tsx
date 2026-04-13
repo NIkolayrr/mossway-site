@@ -87,12 +87,22 @@ export function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <button className='rounded-lg bg-[#9ec940] px-8 py-4 font-bold text-[#1a1410] shadow-[0_0_20px_rgba(158,201,64,0.3)] transition-all hover:bg-[#b5e055] hover:scale-105'>
+            <a
+              href='https://apps.apple.com/bg/app/mossway/id6759486915'
+              target='_blank'
+              rel='noreferrer'
+              className='rounded-lg bg-[#9ec940] px-8 py-4 font-bold text-[#1a1410] shadow-[0_0_20px_rgba(158,201,64,0.3)] transition-all hover:scale-105 hover:bg-[#b5e055]'
+            >
               Download on iOS
-            </button>
-            <button className='rounded-lg border-2 border-[#9ec940] bg-[#3d2f1f] px-8 py-4 font-bold text-[#9ec940] transition-all hover:bg-[#4a3a28] hover:scale-105'>
-              Get on Android
-            </button>
+            </a>
+            <a
+              href='https://play.google.com/store/apps/details?id=com.mossway.adventure'
+              target='_blank'
+              rel='noreferrer'
+              className='rounded-lg border-2 border-[#9ec940] bg-[#3d2f1f] px-8 py-4 font-bold text-[#9ec940] transition-all hover:scale-105 hover:bg-[#4a3a28]'
+            >
+              Join Android Beta
+            </a>
           </motion.div>
         </motion.div>
       </section>
