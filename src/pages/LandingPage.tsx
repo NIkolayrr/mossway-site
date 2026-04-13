@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { BookOpen, Brain, Handshake, Shield, Sparkles, Target, Search, Dumbbell, Leaf } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
@@ -5,11 +6,22 @@ import mosswayLogo from '../assets/logo_main.png'
 
 export function LandingPage() {
   const { scrollY } = useScroll()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches)
+
+    updateIsMobile()
+    mediaQuery.addEventListener('change', updateIsMobile)
+
+    return () => mediaQuery.removeEventListener('change', updateIsMobile)
+  }, [])
 
   // subtle parallax (NOT aggressive)
-  const heroY = useTransform(scrollY, [0, 600], [0, 120])
-  const logoY = useTransform(scrollY, [0, 600], [0, -60])
-  const featuresY = useTransform(scrollY, [0, 1000], [0, -40])
+  const heroY = useTransform(scrollY, [0, 600], [0, isMobile ? 0 : 120])
+  const logoY = useTransform(scrollY, [0, 600], [0, isMobile ? 0 : -60])
+  const featuresY = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : -40])
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-[#0f0a08] via-[#1a2810] to-[#0f0a08] text-[#d4c5a0]'>
@@ -34,7 +46,7 @@ export function LandingPage() {
       </header>
 
       {/* Hero */}
-      <section className='mx-auto max-w-6xl px-4 py-20 text-center overflow-hidden'>
+      <section className='mx-auto max-w-6xl overflow-visible px-4 py-20 text-center md:overflow-hidden'>
         <motion.div className='relative mb-8 flex justify-center' style={{ y: logoY }}>
           <motion.img
             src={mosswayLogo}
