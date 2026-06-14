@@ -11,11 +11,21 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Production
+## Node.js Production
 
 ```bash
 npm run build
 npm run start
 ```
 
-Deploy the application to a host that supports the Next.js Node.js runtime, such as Vercel. GitHub Pages only serves static files and cannot run this SSR application.
+This keeps request-time server rendering and requires a Next.js-compatible Node.js host.
+
+## GitHub Pages
+
+```bash
+npm run build:pages
+```
+
+This creates a static export in `out/`. After pushes to `main`, the GitHub Actions workflow commits that directory to the `gh-pages` branch.
+
+In the repository settings, configure **Pages > Build and deployment** to deploy from the `gh-pages` branch and the `/ (root)` directory.
