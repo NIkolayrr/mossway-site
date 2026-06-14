@@ -1,7 +1,9 @@
-export default {
-  content: ['./src/main.tsx', './src/**/*.{js,ts,jsx,tsx}'],
+const config = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
   plugins: [],
 }
+
+export default config

@@ -1,5 +1,8 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
+import Image from 'next/image'
+import Link from 'next/link'
 import { BookOpen, Brain, Handshake, Shield, Sparkles, Target, Search, Dumbbell, Leaf } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import mosswayLogo from '../assets/logo_main.png'
@@ -35,10 +38,10 @@ export function LandingPage() {
             </span>
           </div>
           <nav className='flex items-center gap-6'>
-            <Link to='/terms' className='text-sm transition-colors hover:text-[#9ec940]'>
+            <Link href='/terms' className='text-sm transition-colors hover:text-[#9ec940]'>
               Terms
             </Link>
-            <Link to='/privacy' className='text-sm transition-colors hover:text-[#9ec940]'>
+            <Link href='/privacy' className='text-sm transition-colors hover:text-[#9ec940]'>
               Privacy
             </Link>
           </nav>
@@ -48,15 +51,15 @@ export function LandingPage() {
       {/* Hero */}
       <section className='mx-auto max-w-6xl overflow-visible px-4 py-20 text-center md:overflow-hidden'>
         <motion.div className='relative mb-8 flex justify-center' style={{ y: logoY }}>
-          <motion.img
-            src={mosswayLogo}
-            alt='Mossway Logo'
-            className='h-60 w-auto'
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-          />
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+          <motion.div>
+            <Image
+              src={mosswayLogo}
+              alt='Mossway Logo'
+              className='h-60 w-auto'
+              priority
+            />
+          </motion.div>
+          <motion.div>
             <Sparkles className='absolute -right-8 -top-2 h-6 w-6 animate-pulse text-[#9ec940]' />
           </motion.div>
         </motion.div>
@@ -68,37 +71,20 @@ export function LandingPage() {
               textShadow: '0 0 20px rgba(158,201,64,0.5)',
               fontFamily: 'serif',
             }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
           >
             Your Life, An Epic Quest
           </motion.h2>
 
-          <motion.p
-            className='mx-auto mb-4 max-w-2xl text-xl leading-relaxed text-[#a89968]'
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <motion.p className='mx-auto mb-4 max-w-2xl text-xl leading-relaxed text-[#a89968]'>
             Transform real-world goals into RPG-style quests. Explore an interactive medieval world where you earn XP,
             level up skills, and become the hero of your own story.
           </motion.p>
 
-          <motion.p
-            className='mb-12 text-lg italic text-[#9ec940]'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
+          <motion.p className='mb-12 text-lg italic text-[#9ec940]'>
             "Moss grows when it grows"
           </motion.p>
 
-          <motion.div
-            className='flex flex-col justify-center gap-4 sm:flex-row'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
+          <motion.div className='flex flex-col justify-center gap-4 sm:flex-row'>
             <a
               href='https://apps.apple.com/bg/app/mossway/id6759486915'
               target='_blank'
@@ -124,9 +110,6 @@ export function LandingPage() {
         <motion.h3
           className='mb-12 text-center text-3xl font-bold text-[#9ec940]'
           style={{ fontFamily: 'serif' }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
         >
           Embark on Your Journey
         </motion.h3>
@@ -152,13 +135,7 @@ export function LandingPage() {
                 'Explore an overworld map with themed biomes and zones. Meet NPCs who offer quests through engaging dialogue systems.',
             },
           ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              viewport={{ once: true }}
-            >
+            <motion.div key={i}>
               <FeatureCard {...item} />
             </motion.div>
           ))}
@@ -167,12 +144,7 @@ export function LandingPage() {
 
       {/* Stats */}
       <section className='mx-auto max-w-6xl bg-gradient-to-r from-transparent via-[#1a2810]/50 to-transparent px-4 py-20'>
-        <motion.div
-          className='mb-12 text-center'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <motion.div className='mb-12 text-center'>
           <h3 className='mb-4 text-3xl font-bold text-[#9ec940]' style={{ fontFamily: 'serif' }}>
             Track Your Growth
           </h3>
@@ -189,13 +161,7 @@ export function LandingPage() {
             { icon: <Handshake className='h-8 w-8' />, label: 'Connection', color: '#fbbf24' },
             { icon: <Search className='h-8 w-8' />, label: 'Discovery', color: '#f59e0b' },
           ].map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
+            <motion.div key={i}>
               <StatCard {...s} />
             </motion.div>
           ))}
@@ -215,8 +181,8 @@ export function LandingPage() {
             </div>
 
             <div className='flex gap-6 text-sm'>
-              <Link to='/terms'>Terms & Conditions</Link>
-              <Link to='/privacy'>Privacy Policy</Link>
+              <Link href='/terms'>Terms & Conditions</Link>
+              <Link href='/privacy'>Privacy Policy</Link>
             </div>
           </div>
 

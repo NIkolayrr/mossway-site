@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
 export function TermsAndConditions() {
@@ -7,7 +7,7 @@ export function TermsAndConditions() {
       {/* Header */}
       <header className='border-b border-[#3d2f1f] bg-[#1a1410]/80 backdrop-blur-sm sticky top-0 z-40'>
         <div className='max-w-4xl mx-auto px-4 py-4 flex items-center justify-between'>
-          <Link to='/' className='flex items-center gap-2 text-[#9ec940] hover:text-[#b5e055] transition-colors'>
+          <Link href='/' className='flex items-center gap-2 text-[#9ec940] hover:text-[#b5e055] transition-colors'>
             <ArrowLeft className='w-5 h-5' />
             <span>Back to Home</span>
           </Link>
@@ -168,13 +168,13 @@ export function TermsAndConditions() {
       <footer className='border-t border-[#3d2f1f] bg-[#1a1410]/80 mt-20'>
         <div className='max-w-4xl mx-auto px-4 py-6 text-center'>
           <div className='flex gap-6 text-sm justify-center mb-4'>
-            <Link to='/' className='hover:text-[#9ec940] transition-colors'>
+            <Link href='/' className='hover:text-[#9ec940] transition-colors'>
               Home
             </Link>
-            <Link to='/terms' className='text-[#9ec940]'>
+            <Link href='/terms' className='text-[#9ec940]'>
               Terms & Conditions
             </Link>
-            <Link to='/privacy' className='hover:text-[#9ec940] transition-colors'>
+            <Link href='/privacy' className='hover:text-[#9ec940] transition-colors'>
               Privacy Policy
             </Link>
           </div>
