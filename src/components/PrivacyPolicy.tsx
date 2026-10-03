@@ -1,30 +1,21 @@
-import Link from 'next/link'
-import { ArrowLeft, Shield, Lock, Eye, Database } from 'lucide-react'
+import { SiteHeader, SiteFooter } from '@/components/SiteChrome'
+import { Shield, Lock, Eye, Database } from 'lucide-react'
 
 export function PrivacyPolicy() {
   return (
-    <div className='min-h-screen bg-gradient-to-b from-[#0f0a08] via-[#1a2810] to-[#0f0a08] text-[#d4c5a0]'>
-      <header className='sticky top-0 z-40 border-b border-[#3d2f1f] bg-[#1a1410]/80 backdrop-blur-sm'>
-        <div className='mx-auto flex max-w-4xl items-center justify-between px-4 py-4'>
-          <Link href='/' className='flex items-center gap-2 text-[#9ec940] transition-colors hover:text-[#b5e055]'>
-            <ArrowLeft className='h-5 w-5' />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-      </header>
+    <>
+      <SiteHeader />
 
-      <main className='mx-auto max-w-4xl px-4 py-12'>
-        <div className='rounded-xl border-2 border-[#3d2f1f] bg-gradient-to-br from-[#2a2420] to-[#1a1410] p-8 md:p-12'>
+      <main id='main-content' className='legal-main container'>
+        <div className='legal-content'>
           <div className='mb-3 flex items-center gap-3'>
-            <Shield className='h-8 w-8 text-[#9ec940]' />
-            <h1 className='text-4xl font-bold text-[#9ec940]' style={{ fontFamily: 'serif' }}>
-              Privacy Policy
-            </h1>
+            <Shield className='h-8 w-8 text-[#b4cf79]' />
+            <h1 className='text-4xl font-bold text-[#b4cf79]'>Privacy Policy</h1>
           </div>
-          <p className='mb-8 text-sm text-[#6b4423]'>Last updated: March 22, 2026</p>
+          <p className='mb-8 text-sm text-[#b4b8a5]'>Last updated: March 22, 2026</p>
 
           <div className='mb-8 rounded-lg border-2 border-[#9ec940] bg-[#1a2810]/50 p-6'>
-            <h3 className='mb-4 text-xl font-bold text-[#9ec940]'>Privacy at a Glance</h3>
+            <h2 className='mb-4 text-xl font-bold text-[#b4cf79]'>Privacy at a Glance</h2>
             <div className='grid gap-4 md:grid-cols-2'>
               <PrivacyHighlight
                 icon={<Lock className='h-5 w-5' />}
@@ -49,7 +40,7 @@ export function PrivacyPolicy() {
                 collect, how we use it, and the choices you have when using our mobile application.
               </p>
               <p>
-                <strong className='text-[#9ec940]'>Short version:</strong> we collect limited account and gameplay data
+                <strong className='text-[#b4cf79]'>Short version:</strong> we collect limited account and gameplay data
                 needed to provide Mossway, including authentication details, progress, quest history, and related app
                 data.
               </p>
@@ -185,37 +176,22 @@ export function PrivacyPolicy() {
 
             <Section title='13. Contact Us'>
               <p>If you have questions about this Privacy Policy or your data, contact us at:</p>
-              <p className='mt-2 text-[#9ec940]'>mosswayapp@gmail.com</p>
+              <p className='mt-2 text-[#b4cf79]'>mosswayapp@gmail.com</p>
             </Section>
           </div>
         </div>
       </main>
 
-      <footer className='mt-20 border-t border-[#3d2f1f] bg-[#1a1410]/80'>
-        <div className='mx-auto max-w-4xl px-4 py-6 text-center'>
-          <div className='mb-4 flex justify-center gap-6 text-sm'>
-            <Link href='/' className='transition-colors hover:text-[#9ec940]'>
-              Home
-            </Link>
-            <Link href='/terms' className='transition-colors hover:text-[#9ec940]'>
-              Terms & Conditions
-            </Link>
-            <Link href='/privacy' className='text-[#9ec940]'>
-              Privacy Policy
-            </Link>
-          </div>
-          <p className='text-sm text-[#6b4423]'>© 2026 Mossway. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+      <SiteFooter />
+    </>
   )
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className='mb-4 text-2xl font-bold text-[#9ec940]'>{title}</h2>
-      <div className='space-y-3 text-[#a89968]'>{children}</div>
+      <h2 className='mb-4 text-2xl font-bold text-[#b4cf79]'>{title}</h2>
+      <div className='space-y-3 text-[#b4b8a5]'>{children}</div>
     </section>
   )
 }
@@ -223,7 +199,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function PrivacyHighlight({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className='flex items-center gap-3'>
-      <div className='text-[#9ec940]'>{icon}</div>
+      <div className='text-[#b4cf79]'>{icon}</div>
       <span className='text-sm'>{text}</span>
     </div>
   )

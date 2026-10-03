@@ -1,220 +1,324 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { BookOpen, Brain, Handshake, Shield, Sparkles, Target, Search, Dumbbell, Leaf } from 'lucide-react'
-import { motion, useScroll, useTransform } from 'motion/react'
-import mosswayLogo from '../assets/logo_main.png'
+import {
+  ArrowDown,
+  ArrowUpRight,
+  BookOpen,
+  Check,
+  Compass,
+  Feather,
+  Leaf,
+  Map,
+  Plus,
+  Sparkles,
+  Sprout,
+} from 'lucide-react'
+import { SiteFooter, SiteHeader } from '@/components/SiteChrome'
+import { StoreLinks } from '@/components/StoreLinks'
+import { site } from '@/lib/site'
+
+const questions = [
+  {
+    question: 'What is Mossway?',
+    answer:
+      'Mossway is a real-life quest app for iOS and Android. It brings an RPG-inspired world to everyday self-improvement: discover quests, do something meaningful in the real world, and earn experience points for your character. Think of it as a little extra adventure in your day.',
+  },
+  {
+    question: 'How do real-life quests work?',
+    answer:
+      'Explore the map and meet guides who offer quests. Choose something that fits your time and energy, complete the activity in real life, then mark it complete in Mossway. Activities can include taking a walk, trying something creative, learning, or connecting with someone.',
+  },
+  {
+    question: 'Can I track longer goals as well as small tasks?',
+    answer:
+      'Yes. Alongside smaller quests, Mossway has longer adventures with checklists. Track individual steps and keep your ongoing adventures and completed quests together in your quest log.',
+  },
+  {
+    question: 'Do I have to use Mossway every day?',
+    answer:
+      'Your journey is yours. Mossway celebrates progress with XP, rewards, and streaks, but you can choose quests at your own pace. Come back when you have the time and energy for your next adventure.',
+  },
+  {
+    question: 'Where can I download Mossway?',
+    answer:
+      'Mossway is available on the Apple App Store for iPhone and iPad, and on Google Play for Android. Use either download button on this page to open the official store listing for your device.',
+  },
+]
+
+const steps = [
+  {
+    number: '01',
+    label: 'FOLLOW YOUR CURIOSITY',
+    title: 'Find your next little quest.',
+    text: 'A walk somewhere new. A moment to create. A reason to reconnect. Meet the guides on your map and choose an activity that fits your day.',
+    image: 'quests',
+    alt: 'Mossway quest selection with real-life creative activities and XP rewards',
+    icon: Compass,
+  },
+  {
+    number: '02',
+    label: 'ONE STEP AT A TIME',
+    title: 'Make room for bigger things.',
+    text: 'Some adventures take a little longer. Break them into manageable steps and keep your progress close, wherever the journey takes you.',
+    image: 'adventures',
+    alt: 'A longer Mossway adventure with a checklist of individual steps',
+    icon: Map,
+  },
+  {
+    number: '03',
+    label: 'SEE HOW FAR YOU’VE COME',
+    title: 'Every small step adds up.',
+    text: 'Earn XP, grow your character, and look back on your completed quests. Your quest log is a reminder of all the things you made time for.',
+    image: 'journal',
+    alt: 'Mossway quest log showing ongoing adventures, completed activities, and earned XP',
+    icon: BookOpen,
+  },
+]
 
 export function LandingPage() {
-  const { scrollY } = useScroll()
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    const updateIsMobile = () => setIsMobile(mediaQuery.matches)
-
-    updateIsMobile()
-    mediaQuery.addEventListener('change', updateIsMobile)
-
-    return () => mediaQuery.removeEventListener('change', updateIsMobile)
-  }, [])
-
-  // subtle parallax (NOT aggressive)
-  const heroY = useTransform(scrollY, [0, 600], [0, isMobile ? 0 : 120])
-  const logoY = useTransform(scrollY, [0, 600], [0, isMobile ? 0 : -60])
-  const featuresY = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : -40])
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${site.url}/#organization`,
+        name: site.name,
+        url: site.url,
+        logo: `${site.url}/icon.png`,
+        sameAs: [site.appStore, site.googlePlay],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${site.url}/#website`,
+        name: site.name,
+        url: site.url,
+        publisher: { '@id': `${site.url}/#organization` },
+        inLanguage: 'en',
+      },
+      {
+        '@type': 'MobileApplication',
+        '@id': `${site.url}/#app`,
+        name: site.name,
+        description: site.description,
+        url: site.url,
+        operatingSystem: 'iOS, iPadOS, Android',
+        applicationCategory: 'LifestyleApplication',
+        installUrl: [site.appStore, site.googlePlay],
+        image: `${site.url}/images/social-preview.jpg`,
+        screenshot: steps.map((step) => `${site.url}/images/${step.image}.webp`),
+        publisher: { '@id': `${site.url}/#organization` },
+      },
+    ],
+  }
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-[#0f0a08] via-[#1a2810] to-[#0f0a08] text-[#d4c5a0]'>
-      {/* Header */}
-      <header className='sticky top-0 z-40 border-b border-[#3d2f1f] bg-[#1a1410]/80 backdrop-blur-sm'>
-        <div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-4'>
-          <div className='flex items-center gap-3'>
-            <Leaf className='w-6 h-6 text-[#9ec940]' />
-            <span className='text-xl font-bold text-[#9ec940]' style={{ fontFamily: 'serif', letterSpacing: 1 }}>
-              MOSSWAY
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
+      />
+      <SiteHeader />
+      <main id='main-content'>
+        <section className='hero container' aria-labelledby='hero-heading'>
+          <div className='hero-copy'>
+            <p className='eyebrow'>
+              <span className='status-dot' /> A LITTLE WONDER IN YOUR EVERYDAY
+            </p>
+            <h1 id='hero-heading'>
+              Your life.
+              <br />
+              Your pace.
+              <br />
+              <span>Your adventure.</span>
+            </h1>
+            <p className='hero-description'>
+              Turn everyday moments into real-life quests. Build habits, discover new things, and grow your character in
+              a world that grows with you.
+            </p>
+            <StoreLinks />
+            <p className='download-note'>Available for iOS & Android. Adventure included.</p>
+            <a href='#adventure' className='text-link hero-explore'>
+              Take a look around <ArrowDown size={15} aria-hidden='true' />
+            </a>
+          </div>
+          <div className='hero-art' aria-label='The illustrated world and characters of Mossway' role='img'>
+            <div className='orbit orbit-outer' />
+            <div className='orbit orbit-inner' />
+            <span className='map-coordinate coordinate-top'>A WORLD OF POSSIBILITY</span>
+            <div className='world-window'>
+              <Image src='/images/world.webp' alt='' fill sizes='(max-width: 700px) 78vw, 470px' priority />
+            </div>
+            <span className='art-compass'>
+              <Compass size={30} strokeWidth={1.2} />
+            </span>
+            <div className='portrait portrait-finn'>
+              <Image src='/images/guide-finn.webp' alt='' width={108} height={95} />
+            </div>
+            <div className='portrait portrait-aria'>
+              <Image src='/images/guide-aria.webp' alt='' width={102} height={87} />
+            </div>
+            <Sparkles className='art-sparkle' size={24} aria-hidden='true' />
+            <div className='quest-token'>
+              <span className='quest-check'>
+                <Check size={20} />
+              </span>
+              <span>
+                <small>A LITTLE STEP FORWARD</small>
+                <strong>Take the path less traveled</strong>
+              </span>
+              <b>+25 XP</b>
+            </div>
+            <span className='map-coordinate coordinate-bottom'>YOUR NEXT CHAPTER STARTS HERE</span>
+          </div>
+        </section>
+        <div className='values-band'>
+          <div className='container values-inner'>
+            <span>
+              <Compass />
+              Real-life quests
+            </span>
+            <i />
+            <span>
+              <Sprout />
+              Growth at your pace
+            </span>
+            <i />
+            <span>
+              <Sparkles />A little everyday magic
             </span>
           </div>
-          <nav className='flex items-center gap-6'>
-            <Link href='/terms' className='text-sm transition-colors hover:text-[#9ec940]'>
-              Terms
-            </Link>
-            <Link href='/privacy' className='text-sm transition-colors hover:text-[#9ec940]'>
-              Privacy
-            </Link>
-          </nav>
         </div>
-      </header>
-
-      {/* Hero */}
-      <section className='mx-auto max-w-6xl overflow-visible px-4 py-20 text-center md:overflow-hidden'>
-        <motion.div className='relative mb-8 flex justify-center' style={{ y: logoY }}>
-          <motion.div>
-            <Image
-              src={mosswayLogo}
-              alt='Mossway Logo'
-              className='h-60 w-auto'
-              priority
-            />
-          </motion.div>
-          <motion.div>
-            <Sparkles className='absolute -right-8 -top-2 h-6 w-6 animate-pulse text-[#9ec940]' />
-          </motion.div>
-        </motion.div>
-
-        <motion.div style={{ y: heroY }}>
-          <motion.h2
-            className='mb-6 text-5xl font-bold text-[#9ec940] md:text-6xl'
-            style={{
-              textShadow: '0 0 20px rgba(158,201,64,0.5)',
-              fontFamily: 'serif',
-            }}
-          >
-            Your Life, An Epic Quest
-          </motion.h2>
-
-          <motion.p className='mx-auto mb-4 max-w-2xl text-xl leading-relaxed text-[#a89968]'>
-            Transform real-world goals into RPG-style quests. Explore an interactive medieval world where you earn XP,
-            level up skills, and become the hero of your own story.
-          </motion.p>
-
-          <motion.p className='mb-12 text-lg italic text-[#9ec940]'>
-            "Moss grows when it grows"
-          </motion.p>
-
-          <motion.div className='flex flex-col justify-center gap-4 sm:flex-row'>
-            <a
-              href='https://apps.apple.com/bg/app/mossway/id6759486915'
-              target='_blank'
-              rel='noreferrer'
-              className='rounded-lg bg-[#9ec940] px-8 py-4 font-bold text-[#1a1410] shadow-[0_0_20px_rgba(158,201,64,0.3)] transition-all hover:scale-105 hover:bg-[#b5e055]'
-            >
-              Download on iOS
-            </a>
-            <a
-              href='https://play.google.com/store/apps/details?id=com.mossway.adventure'
-              target='_blank'
-              rel='noreferrer'
-              className='rounded-lg border-2 border-[#9ec940] bg-[#3d2f1f] px-8 py-4 font-bold text-[#9ec940] transition-all hover:scale-105 hover:bg-[#4a3a28]'
-            >
-              Join Android Beta
-            </a>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Features */}
-      <motion.section className='mx-auto max-w-6xl px-4 py-20' style={{ y: featuresY }}>
-        <motion.h3
-          className='mb-12 text-center text-3xl font-bold text-[#9ec940]'
-          style={{ fontFamily: 'serif' }}
-        >
-          Embark on Your Journey
-        </motion.h3>
-
-        <div className='grid gap-8 md:grid-cols-3'>
-          {[
-            {
-              icon: <Target className='h-8 w-8' />,
-              title: 'Real-World Quests',
-              description:
-                'Turn daily tasks and life goals into epic adventures. Complete side quests to level up your skills across Body, Mind, Creativity, Connection, and Discovery.',
-            },
-            {
-              icon: <Shield className='h-8 w-8' />,
-              title: 'No Pressure Philosophy',
-              description:
-                'A non-punishing approach to self-improvement. Rest days are encouraged, streaks are celebrated but not mandatory. Progress at your own pace.',
-            },
-            {
-              icon: <BookOpen className='h-8 w-8' />,
-              title: 'Interactive World',
-              description:
-                'Explore an overworld map with themed biomes and zones. Meet NPCs who offer quests through engaging dialogue systems.',
-            },
-          ].map((item, i) => (
-            <motion.div key={i}>
-              <FeatureCard {...item} />
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Stats */}
-      <section className='mx-auto max-w-6xl bg-gradient-to-r from-transparent via-[#1a2810]/50 to-transparent px-4 py-20'>
-        <motion.div className='mb-12 text-center'>
-          <h3 className='mb-4 text-3xl font-bold text-[#9ec940]' style={{ fontFamily: 'serif' }}>
-            Track Your Growth
-          </h3>
-          <p className='text-[#a89968]'>
-            Earn XP, gold, and skill points as you complete quests and grow your character
-          </p>
-        </motion.div>
-
-        <div className='mx-auto grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-5 justify-center'>
-          {[
-            { icon: <Dumbbell className='h-8 w-8' />, label: 'Body', color: '#9ec940' },
-            { icon: <Brain className='h-8 w-8' />, label: 'Mind', color: '#6b9bd1' },
-            { icon: <Sparkles className='h-8 w-8' />, label: 'Creativity', color: '#d97cc4' },
-            { icon: <Handshake className='h-8 w-8' />, label: 'Connection', color: '#fbbf24' },
-            { icon: <Search className='h-8 w-8' />, label: 'Discovery', color: '#f59e0b' },
-          ].map((s, i) => (
-            <motion.div key={i}>
-              <StatCard {...s} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer stays unchanged */}
-      <footer className='mt-20 border-t border-[#3d2f1f] bg-[#1a1410]/80'>
-        <div className='mx-auto max-w-6xl px-4 py-8'>
-          <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
-            <div className='flex items-center gap-2'>
-              <Leaf className='h-6 w-6 text-[#9ec940]' />
-              <span className='font-bold text-[#9ec940]' style={{ fontFamily: 'serif' }}>
-                MOSSWAY
+        <section className='intro-section container' id='adventure' aria-labelledby='adventure-heading'>
+          <div>
+            <p className='eyebrow'>LESS ROUTINE. MORE DISCOVERY.</p>
+            <h2 id='adventure-heading'>
+              Life isn’t a to-do list.
+              <br />
+              <span>It’s a world to explore.</span>
+            </h2>
+          </div>
+          <div className='intro-copy'>
+            <p>You don’t need a grand plan to begin. Just a little curiosity.</p>
+            <p>
+              Mossway turns personal growth into a cozy RPG adventure. Explore an illustrated map, meet your guides, and
+              find small, meaningful things to do in the real world. A little movement, a spark of creativity, a moment
+              of connection. It all counts.
+            </p>
+          </div>
+        </section>
+        <section className='journey-section container' id='how-it-works' aria-labelledby='journey-heading'>
+          <div className='section-heading'>
+            <div>
+              <p className='eyebrow'>A PEEK INSIDE MOSSWAY</p>
+              <h2 id='journey-heading'>Small quests. Real progress.</h2>
+            </div>
+            <span className='section-side-note'>
+              <Leaf size={16} /> Built around your everyday
+            </span>
+          </div>
+          <div className='journey-grid'>
+            {steps.map((step) => (
+              <article className='journey-card' key={step.number}>
+                <div className='screen-stage'>
+                  <span className='stage-number'>{step.number}</span>
+                  <step.icon className='stage-icon' size={24} strokeWidth={1.2} aria-hidden='true' />
+                  <div className='phone-frame'>
+                    <Image
+                      src={`/images/${step.image}.webp`}
+                      alt={step.alt}
+                      width={640}
+                      height={1385}
+                      sizes='(max-width: 700px) 240px, 260px'
+                      loading='lazy'
+                    />
+                  </div>
+                </div>
+                <div className='journey-copy'>
+                  <p className='eyebrow'>{step.label}</p>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className='pace-section' aria-labelledby='pace-heading'>
+          <div className='container pace-inner'>
+            <div className='guide-garden' aria-hidden='true'>
+              <div className='garden-ring' />
+              <Image className='garden-sage' src='/images/guide-sage.webp' alt='' width={180} height={180} />
+              <Image className='garden-finn' src='/images/guide-finn.webp' alt='' width={210} height={184} />
+              <Image className='garden-aria' src='/images/guide-aria.webp' alt='' width={200} height={170} />
+              <span className='garden-caption'>
+                <Leaf size={15} /> A little company for the road.
               </span>
-              <span className='text-sm text-[#6b4423]'>v1.0</span>
             </div>
-
-            <div className='flex gap-6 text-sm'>
-              <Link href='/terms'>Terms & Conditions</Link>
-              <Link href='/privacy'>Privacy Policy</Link>
+            <div className='pace-copy'>
+              <p className='eyebrow'>PROGRESS, WITH A LITTLE KINDNESS</p>
+              <h2 id='pace-heading'>
+                Moss grows
+                <br />
+                <span>when it grows.</span>
+              </h2>
+              <p>Some days you climb a mountain. Some days you just step outside. Both are part of the adventure.</p>
+              <p>
+                Pick the quests that feel right, celebrate the small wins, and make room for rest. There’s no race to
+                the finish line here.
+              </p>
+              <div className='pace-signoff'>
+                <Feather size={19} />
+                <span>Your journey. Your own good time.</span>
+              </div>
             </div>
           </div>
-
-          <div className='mt-6 text-center text-sm text-[#6b4423]'>
-            <p>© 2026 Mossway. All rights reserved.</p>
-            <p className='mt-2 text-xs italic'>"Moss grows when it grows"</p>
+        </section>
+        <section className='faq-section container' id='questions' aria-labelledby='faq-heading'>
+          <div className='faq-intro'>
+            <p className='eyebrow'>BEFORE YOU SET OFF</p>
+            <h2 id='faq-heading'>
+              A few things
+              <br />
+              you might wonder.
+            </h2>
+            <p>Still curious about something?</p>
+            <a className='text-link' href='mailto:mosswayapp@gmail.com'>
+              Say hello <ArrowUpRight size={16} aria-hidden='true' />
+            </a>
           </div>
-        </div>
-      </footer>
-    </div>
-  )
-}
-
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div className='bg-gradient-to-br from-[#2a2420] to-[#1a1410] p-6 rounded-xl border-2 border-[#3d2f1f] hover:border-[#9ec940] transition-all group'>
-      <div className='text-[#9ec940] mb-4 group-hover:scale-110 transition-transform'>{icon}</div>
-      <h4 className='text-xl font-bold mb-3 text-[#9ec940]'>{title}</h4>
-      <p className='text-[#a89968] leading-relaxed'>{description}</p>
-    </div>
-  )
-}
-
-function StatCard({ icon, label, color }: { icon: React.ReactNode; label: string; color: string }) {
-  return (
-    <div className='rounded-lg border-2 border-[#3d2f1f] bg-gradient-to-br from-[#2a2420] to-[#1a1410] p-4 text-center transition-all hover:border-[#9ec940]'>
-      <div className='mb-2 flex items-center justify-center' style={{ color }}>
-        <div className='flex h-8 w-8 items-center justify-center'>{icon}</div>
-      </div>
-      <div className='text-sm font-bold' style={{ color }}>
-        {label}
-      </div>
-    </div>
+          <div className='faq-list'>
+            {questions.map((item) => (
+              <details key={item.question}>
+                <summary>
+                  {item.question}
+                  <Plus size={18} aria-hidden='true' />
+                </summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+        <section className='download-section container' id='download' aria-labelledby='download-heading'>
+          <div className='download-panel'>
+            <Image
+              src='/images/logo.webp'
+              alt='Mossway'
+              width={190}
+              height={190}
+              sizes='190px'
+              className='download-logo'
+            />
+            <p className='eyebrow'>EVERY ADVENTURE STARTS SOMEWHERE</p>
+            <h2 id='download-heading'>
+              Yours starts with
+              <br />
+              <span>one little quest.</span>
+            </h2>
+            <p>A world to explore. A character to grow. A reason to begin.</p>
+            <StoreLinks />
+            <span className='download-platforms'>Find Mossway on the App Store and Google Play.</span>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
   )
 }

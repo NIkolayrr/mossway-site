@@ -1,26 +1,16 @@
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { SiteHeader, SiteFooter } from '@/components/SiteChrome'
 
 export function TermsAndConditions() {
   return (
-    <div className='min-h-screen bg-gradient-to-b from-[#0f0a08] via-[#1a2810] to-[#0f0a08] text-[#d4c5a0]'>
+    <>
       {/* Header */}
-      <header className='border-b border-[#3d2f1f] bg-[#1a1410]/80 backdrop-blur-sm sticky top-0 z-40'>
-        <div className='max-w-4xl mx-auto px-4 py-4 flex items-center justify-between'>
-          <Link href='/' className='flex items-center gap-2 text-[#9ec940] hover:text-[#b5e055] transition-colors'>
-            <ArrowLeft className='w-5 h-5' />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Content */}
-      <main className='max-w-4xl mx-auto px-4 py-12'>
-        <div className='bg-gradient-to-br from-[#2a2420] to-[#1a1410] rounded-xl border-2 border-[#3d2f1f] p-8 md:p-12'>
-          <h1 className='text-4xl font-bold mb-3 text-[#9ec940]' style={{ fontFamily: 'serif' }}>
-            Terms & Conditions
-          </h1>
-          <p className='text-sm text-[#6b4423] mb-8'>Last updated: March 22, 2026</p>
+      <main id='main-content' className='legal-main container'>
+        <div className='legal-content'>
+          <h1 className='text-4xl font-bold mb-3 text-[#b4cf79]'>Terms & Conditions</h1>
+          <p className='text-sm text-[#b4b8a5] mb-8'>Last updated: March 22, 2026</p>
 
           <div className='space-y-8 leading-relaxed'>
             <Section title='1. Acceptance of Terms'>
@@ -145,7 +135,7 @@ export function TermsAndConditions() {
 
             <Section title='12. Contact Information'>
               <p>If you have questions about these Terms, please contact us at:</p>
-              <p className='mt-2 text-[#9ec940]'>mosswayapp@gmail.com</p>
+              <p className='mt-2 text-[#b4cf79]'>mosswayapp@gmail.com</p>
             </Section>
 
             <Section title='13. Governing Law'>
@@ -157,7 +147,7 @@ export function TermsAndConditions() {
           </div>
 
           <div className='mt-12 pt-8 border-t border-[#3d2f1f] text-center'>
-            <p className='text-sm text-[#6b4423] italic'>
+            <p className='text-sm text-[#b4b8a5] italic'>
               "Moss grows when it grows" — Use Mossway responsibly and with kindness to yourself.
             </p>
           </div>
@@ -165,31 +155,16 @@ export function TermsAndConditions() {
       </main>
 
       {/* Footer */}
-      <footer className='border-t border-[#3d2f1f] bg-[#1a1410]/80 mt-20'>
-        <div className='max-w-4xl mx-auto px-4 py-6 text-center'>
-          <div className='flex gap-6 text-sm justify-center mb-4'>
-            <Link href='/' className='hover:text-[#9ec940] transition-colors'>
-              Home
-            </Link>
-            <Link href='/terms' className='text-[#9ec940]'>
-              Terms & Conditions
-            </Link>
-            <Link href='/privacy' className='hover:text-[#9ec940] transition-colors'>
-              Privacy Policy
-            </Link>
-          </div>
-          <p className='text-sm text-[#6b4423]'>© 2026 Mossway. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+      <SiteFooter />
+    </>
   )
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className='text-2xl font-bold mb-4 text-[#9ec940]'>{title}</h2>
-      <div className='text-[#a89968] space-y-3'>{children}</div>
+      <h2 className='text-2xl font-bold mb-4 text-[#b4cf79]'>{title}</h2>
+      <div className='text-[#b4b8a5] space-y-3'>{children}</div>
     </section>
   )
 }
